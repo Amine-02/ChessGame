@@ -1,0 +1,10 @@
+# Ignore all files by default
+*
+
+# Allow specific file types
+!*.cpp
+!*.h
+!*.qrc
+!*.jpg
+!*.png
+!*.gif
