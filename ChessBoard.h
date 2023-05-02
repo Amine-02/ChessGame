@@ -9,10 +9,16 @@
 #include <vector>
 #include <tuple>
 #include <memory>
+
 #include "ChessPiece.h"
 #include "Menu.h"
+#include "King.h"
+#include "Queen.h"
+#include "Bishop.h"
+#include "Rook.h"
+#include "Knight.h"
+#include "Pawn.h"
 
-// Global variables
 const int ROW_NUM = 8;
 const int COL_NUM = 8;
 const int CASE_SIZE = 20;

@@ -1,13 +1,20 @@
-﻿#include "Menu.h"
+﻿/*
+L'avertissement C5054 concerne l'utilisation de l'opérateur ' & ' entre énumérations de types différents dans le fichier 'qsizepolicy.h' de la bibliothèque Qt.
+Ce n'est pas notre code qui cause cet avertissement, il est déclenché en incluant certains composants Qt. Puisqu'il provient d'une bibliothèque tierce,
+on peut le désactiver dans ce fichier spécifique avec "#pragma warning(disable : 5054)".
+Attention, désactiver les avertissements n'est pas toujours recommandé car cela peut masquer des problèmes potentiels, mais dans ce cas précis, cela ne pose pas de souci.
+*/
+#pragma warning(disable : 5054)
+#include "Menu.h"
 #include "MainWindow.h"
 
 Menu::Menu(QMainWindow* parent)
-	: QMainWindow(parent), windowPtr(nullptr) 
+	: QMainWindow(parent), windowPtr(nullptr)
 {
 	setWindowTitle("Chess");
 	setFixedSize(1000, 1000);
 	widget = new QWidget(this);
-	
+
 	QPixmap backgroundImage(":/image/board.png");
 	QPalette palette;
 	palette.setBrush(QPalette::Window, backgroundImage);
@@ -115,7 +122,7 @@ Menu::Menu(QMainWindow* parent)
 	color = new QComboBox(widget);
 	color->setGeometry(300, 400, 400, 50);
 	color->setFont(QFont("Arial", 12, QFont::Bold));
-	color->addItems(QStringList{ "ClassicWood", "SilverMoon", "EmeraldGarden", "LavenderDreams"});
+	color->addItems(QStringList{ "ClassicWood", "SilverMoon", "EmeraldGarden", "LavenderDreams" });
 	color->setStyleSheet(
 		"QComboBox {"
 		"   background-color: white;"
@@ -149,9 +156,9 @@ Menu::Menu(QMainWindow* parent)
 	);
 
 	connect(start, &QPushButton::clicked, [this]() {
-		int configIndex = game->currentIndex(); 
-	int colorStyleIndex = color->currentIndex(); 
-	windowPtr = std::make_unique<MainWindow>(colorStyleIndex); 
+		int configIndex = game->currentIndex();
+	int colorStyleIndex = color->currentIndex();
+	windowPtr = std::make_unique<MainWindow>(colorStyleIndex);
 	windowPtr->getBoard()->addPieces(configIndex);
 	windowPtr->show();
 		});
