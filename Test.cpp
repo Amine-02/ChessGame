@@ -7,8 +7,6 @@
 #include "King.h"
 #include "ChessBoard.h"
 
-// Test cases go here
-
 TEST(PawnTest, PawnMovement) {
 	int colorStyle = 0;
 	ChessBoard chessBoard(colorStyle);

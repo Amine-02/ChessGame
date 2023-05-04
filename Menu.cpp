@@ -1,5 +1,4 @@
-﻿#pragma warning(disable : 5054)
-#include "Menu.h"
+﻿#include "Menu.h"
 #include "MainWindow.h"
 
 Menu::Menu(QMainWindow* parent)

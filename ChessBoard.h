@@ -141,6 +141,8 @@ public:
 
 				// Add click handling for each case
 				connect(chessCase.get(), &Case::caseClicked, this, &ChessBoard::onCaseClicked);
+				connect(chessCase.get(), &Case::caseClicked, this, &ChessBoard::highlightValidMoves);
+
 			}
 		}
 
@@ -167,6 +169,7 @@ public:
 	void bishopConfiguration();
 	bool isOpponentPiece(Position to, Team team);
 	void switchCurrentPlayer();
+	void removeHighlightFromAllCases();
 	Position findKing(Team team);
 	bool isPositionAttacked(Position position, Team attackerTeam);
 	bool isMoveResultingInCheck(const Position& from, const Position& to, const Position& kingPosition);
@@ -175,6 +178,8 @@ public:
 
 public slots:
 	void onCaseClicked(int row, int col);
+	void highlightValidMoves(int row, int col);
+
 
 protected:
 	void resizeEvent(QResizeEvent* event) override;

@@ -397,6 +397,60 @@ void generateWarning(QString message) {
 	warning.exec();
 }
 
+void ChessBoard::highlightValidMoves(int row, int col) {
+	Position clickedPosition(row, col);
+	std::shared_ptr<ChessPiece> piece = at(clickedPosition.first, clickedPosition.second)->getPiece();
+	if (!piece || piece->getTeam() != currentPlayer_) {
+		return;
+	}
+
+	for (int i = 0; i < ROW_NUM; ++i) {
+		for (int j = 0; j < COL_NUM; ++j) {
+			Position destination(i, j);
+			std::shared_ptr<ChessPiece> destinationPiece = at(destination.first, destination.second)->getPiece();
+
+			// Skip if the destination has a piece from the same team
+			if (destinationPiece && destinationPiece->getTeam() == currentPlayer_) {
+				continue;
+			}
+			if (piece->isValidMove(clickedPosition, destination)) {
+				bool canHighlight = false;
+				if (piece->getName() == "Knight") {
+					canHighlight = !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+				}
+				else {
+					canHighlight = !hasPiecesInWay(clickedPosition, destination) && !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+				}
+
+				if (canHighlight) {
+					board[i][j]->setStyleSheet("background-color: rgba(255, 255, 0, 0.5);");
+				}
+			}
+		}
+	}
+}
+
+
+void ChessBoard::removeHighlightFromAllCases() {
+	for (int row = 0; row < ROW_NUM; ++row) {
+		for (int col = 0; col < COL_NUM; ++col) {
+			std::shared_ptr<Case> currentCase = at(row, col);
+			bool isWhite = (currentCase->getPosition().first + currentCase->getPosition().second) % 2 == 0;
+			if (colorStyle_ == 0) {
+				currentCase->setStyleSheet(isWhite ? "background-color: Peru;" : "background-color: Wheat;");
+			}
+			else if (colorStyle_ == 1) {
+				currentCase->setStyleSheet(isWhite ? "background-color: LightGray;" : "background-color: SlateGray;");
+			}
+			else if (colorStyle_ == 2) {
+				currentCase->setStyleSheet(isWhite ? "background-color: LightGreen;" : "background-color: DarkGreen;");
+			}
+			else if (colorStyle_ == 3) {
+				currentCase->setStyleSheet(isWhite ? "background-color: Thistle;" : "background-color: MediumPurple;");
+			}
+		}
+	}
+}
 
 
 
@@ -405,6 +459,7 @@ bool ChessBoard::movePiece(const Position& from, const Position& to) {
 
 	if (originCase->getPiece() == nullptr || !(originCase->getPiece()->isValidMove(from, to))) {
 		generateWarning("Invalid Move!");
+		removeHighlightFromAllCases();
 		return false;
 	}
 
@@ -413,11 +468,13 @@ bool ChessBoard::movePiece(const Position& from, const Position& to) {
 	if (destinationCase->getPiece() != nullptr && destinationCase->getPiece()->getTeam() == originCase->getPiece()
 		->getTeam()) {
 		generateWarning("Invalid Move!");
+		removeHighlightFromAllCases();
 		return false;
 	}
 
 	if (originCase.get()->getPiece().get()->getName() != "Knight" && hasPiecesInWay(from, to)) {
 		generateWarning("Invalid Move!");
+		removeHighlightFromAllCases();
 		return false;
 	}
 
@@ -433,6 +490,7 @@ bool ChessBoard::movePiece(const Position& from, const Position& to) {
 
 	if (kingInCheck) {
 		generateWarning("King is in check. Move not allowed.");
+		removeHighlightFromAllCases();
 		return false;
 	}
 
@@ -460,57 +518,68 @@ void ChessBoard::onCaseClicked(int row, int col) {
 
 	if (!selectedCase_) {
 		if (clickedCase->getPiece() && clickedCase->getPiece()->getTeam() == currentPlayer_) {
+			removeHighlightFromAllCases();
 			selectedCase_ = clickedCase;
 			clickedCase->setStyleSheet("background-color: lightsalmon;");
 		}
 	}
 	else {
-		Position from = selectedCase_->getPosition();
-		Position to = clickedCase->getPosition();
+		if (clickedCase->getPiece() && clickedCase->getPiece()->getTeam() == currentPlayer_) {
+			removeHighlightFromAllCases();
+			// Select the new piece
+			selectedCase_ = clickedCase;
+			clickedCase->setStyleSheet("background-color: lightsalmon;");
+		}
+		else {
+			Position from = selectedCase_->getPosition();
+			Position to = clickedCase->getPosition();
 
-		// Check if it's the current player's turn
-		if (selectedCase_->getPiece()->getTeam() == currentPlayer_) {
-			if (movePiece(from, to)) { // Check if the move was successful
-				// Switch the current player
-				currentPlayer_ = (currentPlayer_ == White) ? Black : White;
+			// Check if it's the current player's turn
+			if (selectedCase_->getPiece()->getTeam() == currentPlayer_) {
+				if (movePiece(from, to)) { // Check if the move was successful
+					// Switch the current player
+					removeHighlightFromAllCases();
+					currentPlayer_ = (currentPlayer_ == White) ? Black : White;
+				}
 			}
-		}
 
-		// Reset the selected case's style
-		bool isWhite = (selectedCase_->getPosition().first + selectedCase_->getPosition().second) % 2 == 0;
-		//selectedCase_->setStyleSheet(isWhite ? "background-color: Peru;" : "background-color: Wheat;");
-		if (colorStyle_ == 0) { // Brown/Beige color style
-			if (isWhite) {
-				selectedCase_->setStyleSheet("background-color: Peru;");
+
+			// Reset the selected case's style
+			bool isWhite = (selectedCase_->getPosition().first + selectedCase_->getPosition().second) % 2 == 0;
+			//selectedCase_->setStyleSheet(isWhite ? "background-color: Peru;" : "background-color: Wheat;");
+			if (colorStyle_ == 0) { // Brown/Beige color style
+				if (isWhite) {
+					selectedCase_->setStyleSheet("background-color: Peru;");
+				}
+				else {
+					selectedCase_->setStyleSheet("background-color: Wheat;");
+				}
 			}
-			else {
-				selectedCase_->setStyleSheet("background-color: Wheat;");
+			else if (colorStyle_ == 1) { // Gray/Blue color style
+				if (isWhite) {
+					selectedCase_->setStyleSheet("background-color: LightGray;");
+				}
+				else {
+					selectedCase_->setStyleSheet("background-color: SlateGray;");
+				}
 			}
+			else if (colorStyle_ == 2) { // Green/Cream color style
+				if (isWhite) {
+					selectedCase_->setStyleSheet("background-color: LightGreen;");
+				}
+				else {
+					selectedCase_->setStyleSheet("background-color: DarkGreen;");
+				}
+			}
+			else if (colorStyle_ == 3) { // Purple/Pink color style
+				if (isWhite) {
+					selectedCase_->setStyleSheet("background-color: Thistle;");
+				}
+				else {
+					selectedCase_->setStyleSheet("background-color: MediumPurple;");
+				}
+			}
+			selectedCase_ = nullptr;
 		}
-		else if (colorStyle_ == 1) { // Gray/Blue color style
-			if (isWhite) {
-				selectedCase_->setStyleSheet("background-color: LightGray;");
-			}
-			else {
-				selectedCase_->setStyleSheet("background-color: SlateGray;");
-			}
-		}
-		else if (colorStyle_ == 2) { // Green/Cream color style
-			if (isWhite) {
-				selectedCase_->setStyleSheet("background-color: LightGreen;");
-			}
-			else {
-				selectedCase_->setStyleSheet("background-color: DarkGreen;");
-			}
-		}
-		else if (colorStyle_ == 3) { // Purple/Pink color style
-			if (isWhite) {
-				selectedCase_->setStyleSheet("background-color: Thistle;");
-			}
-			else {
-				selectedCase_->setStyleSheet("background-color: MediumPurple;");
-			}
-		}
-		selectedCase_ = nullptr;
 	}
 }

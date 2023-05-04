@@ -1,4 +1,5 @@
 ﻿#pragma once
+#pragma warning(disable : 5054)
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>

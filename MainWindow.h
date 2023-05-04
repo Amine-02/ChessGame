@@ -3,7 +3,6 @@
 #include <QMainWindow>
 #include "ChessBoard.h"
 
-//namespace window {
 class MainWindow : public QWidget {
 	Q_OBJECT
 
@@ -18,4 +17,3 @@ private:
 	ChessBoard* chessBoard;
 	int color_;
 };
-//}
