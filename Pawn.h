@@ -1,6 +1,5 @@
+#pragma once
 #include "ChessPiece.h"
-
-class ChessBoard;
 
 class Pawn : public ChessPiece
 {

@@ -1,10 +1,4 @@
-﻿/*
-L'avertissement C5054 concerne l'utilisation de l'opérateur ' & ' entre énumérations de types différents dans le fichier 'qsizepolicy.h' de la bibliothèque Qt.
-Ce n'est pas notre code qui cause cet avertissement, il est déclenché en incluant certains composants Qt. Puisqu'il provient d'une bibliothèque tierce,
-on peut le désactiver dans ce fichier spécifique avec "#pragma warning(disable : 5054)".
-Attention, désactiver les avertissements n'est pas toujours recommandé car cela peut masquer des problèmes potentiels, mais dans ce cas précis, cela ne pose pas de souci.
-*/
-#pragma warning(disable : 5054)
+﻿#pragma warning(disable : 5054)
 #include "Menu.h"
 #include "MainWindow.h"
 

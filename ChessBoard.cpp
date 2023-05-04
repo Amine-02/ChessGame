@@ -1,4 +1,3 @@
-#pragma warning(disable : 5054)
 #include <iostream>
 #include <stdexcept> 
 
@@ -294,7 +293,7 @@ bool ChessBoard::isOpponentPiece(Position to, Team team) {
 		return true;
 	}
 
-	return false;
+	return true;
 }
 
 bool ChessBoard::hasPiecesInWay(const Position& from, const Position& to) const {
@@ -382,20 +381,43 @@ bool ChessBoard::isMoveResultingInCheck(const Position& from, const Position& to
 	return kingInCheck;
 }
 
+void generateWarning(QString message) {
+
+	QMessageBox warning = QMessageBox();
+
+	warning.setIcon(QMessageBox::Warning);
+	warning.setWindowTitle("Warning");
+	warning.setText(message);
+	warning.setStandardButtons(QMessageBox::Ok);;
+	QSpacerItem* horizontalSpacer = new QSpacerItem(500, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	QGridLayout* layout = (QGridLayout*)warning.layout();
+	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+	warning.setMinimumSize(400, 200);
+
+	warning.exec();
+}
+
+
+
+
 bool ChessBoard::movePiece(const Position& from, const Position& to) {
 	std::shared_ptr<Case>& originCase = this->getBoard()[from.first][from.second];
 
 	if (originCase->getPiece() == nullptr || !(originCase->getPiece()->isValidMove(from, to))) {
+		generateWarning("Invalid Move!");
 		return false;
 	}
 
 	std::shared_ptr<Case>& destinationCase = this->getBoard()[to.first][to.second];
 
-	if (destinationCase->getPiece() != nullptr && destinationCase->getPiece()->getTeam() == originCase->getPiece()->getTeam()) {
+	if (destinationCase->getPiece() != nullptr && destinationCase->getPiece()->getTeam() == originCase->getPiece()
+		->getTeam()) {
+		generateWarning("Invalid Move!");
 		return false;
 	}
 
 	if (originCase.get()->getPiece().get()->getName() != "Knight" && hasPiecesInWay(from, to)) {
+		generateWarning("Invalid Move!");
 		return false;
 	}
 
@@ -410,12 +432,7 @@ bool ChessBoard::movePiece(const Position& from, const Position& to) {
 	bool kingInCheck = isMoveResultingInCheck(from, to, kingPosition);
 
 	if (kingInCheck) {
-		QMessageBox warning = QMessageBox();
-		warning.setIcon(QMessageBox::Warning);
-		warning.setWindowTitle("Warning");
-		warning.setText("King is in check. Move not allowed.");
-		warning.setStandardButtons(QMessageBox::Ok);
-		warning.exec();
+		generateWarning("King is in check. Move not allowed.");
 		return false;
 	}
 

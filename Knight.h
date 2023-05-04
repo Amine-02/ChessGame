@@ -1,3 +1,4 @@
+#pragma once
 #include "ChessPiece.h"
 
 
@@ -25,7 +26,8 @@ public:
 		int rowDifference = std::abs(from.first - to.first);
 		int colDifference = std::abs(from.second - to.second);
 
-		// A knight can move in an L-shape (two squares in a straight line and then one square perpendicular to that line, or vice versa)
+		/* A knight can move in an L - shape(two squares in a straight line and then one square perpendicular to that
+		line, or vice versa)*/
 		return (rowDifference == 2 && colDifference == 1) || (rowDifference == 1 && colDifference == 2);
 	}
 

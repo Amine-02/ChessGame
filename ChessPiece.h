@@ -1,4 +1,5 @@
 ﻿#pragma once
+#pragma warning(disable : 5054)
 #include <iostream>
 #include <QWidget>
 #include <QLabel>
@@ -10,7 +11,7 @@
 #include <vector>
 #include <stdexcept>
 
-enum Team {White, Black};
+enum Team { White, Black };
 using Position = QPair<int, int>;
 
 const wchar_t WHITE_KING = 0x2654;
@@ -27,25 +28,25 @@ const wchar_t BLACK_KNIGHT = 0x265E;
 const wchar_t BLACK_PAWN = 0x265F;
 
 
-	class ChessBoard;
+class ChessBoard;
 
-	class ChessPiece : public QWidget
-	{
-		Q_OBJECT
-	public:
+class ChessPiece : public QWidget
+{
+	Q_OBJECT
 
-		explicit ChessPiece(Team team, std::string name) : team_(team), name_(name) {}
-		virtual ~ChessPiece() = default;
-		// virtual std::vector<Position> possibleMoves(const Position& currentPosition) const = 0;
-		virtual bool isValidMove(const Position& from, const Position& to) const = 0;
-		Team getTeam() const { return team_; }
-		std::string getName() const { return name_; }
+public:
+	explicit ChessPiece(Team team, std::string name) : team_(team), name_(name) {}
+	virtual ~ChessPiece() = default;
+	// virtual std::vector<Position> possibleMoves(const Position& currentPosition) const = 0;
+	virtual bool isValidMove(const Position& from, const Position& to) const = 0;
+	Team getTeam() const { return team_; }
+	std::string getName() const { return name_; }
 
-		virtual QLabel* label() const = 0;
+	virtual QLabel* label() const = 0;
 
-	protected:
-		Team team_;
-		std::string name_;
-	};
+protected:
+	Team team_;
+	std::string name_;
+};
 
 

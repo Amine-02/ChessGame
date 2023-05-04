@@ -1,20 +1,21 @@
 #pragma once
+#pragma warning(disable : 5054)
 #include <QMainWindow>
 #include "ChessBoard.h"
 
 //namespace window {
-    class MainWindow : public QWidget {
-        Q_OBJECT
+class MainWindow : public QWidget {
+	Q_OBJECT
 
-    public:
-        MainWindow(int colorStyle, QWidget* parent = nullptr); // New constructor
+public:
+	MainWindow(int colorStyle, QWidget* parent = nullptr);
 
-        ChessBoard* getBoard() {
-            return chessBoard;
-        }
+	ChessBoard* getBoard() {
+		return chessBoard;
+	}
 
-    private:
-        ChessBoard* chessBoard;
-        int color_;
-    };
+private:
+	ChessBoard* chessBoard;
+	int color_;
+};
 //}

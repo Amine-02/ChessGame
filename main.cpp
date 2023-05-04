@@ -1,11 +1,13 @@
 ﻿#pragma warning(disable : 5054)
 /*
-L'avertissement C5054 concerne l'utilisation de l'opérateur ' & ' entre énumérations de types différents dans le fichier 'qsizepolicy.h' de la bibliothèque Qt.
-Ce n'est pas notre code qui cause cet avertissement, il est déclenché en incluant certains composants Qt. Puisqu'il provient d'une bibliothèque tierce,
-on peut le désactiver dans ce fichier spécifique avec "#pragma warning(disable : 5054)".
-Attention, désactiver les avertissements n'est pas toujours recommandé car cela peut masquer des problèmes potentiels, mais dans ce cas précis, cela ne pose pas de souci.
+The warning C5054 is related to the use of the '&' operator between enumerations of different types in the Qt library
+header file 'qsizepolicy.h'.
+In our code, we are not directly causing this warning, but it is triggered when we include some Qt components. Since the
+warning originates from a library and not our own code, we can suppress the warning in this specific files using
+"#pragma warning(disable : 5054)".
 */
 #include <QApplication>
+#include "gtest/gtest.h"
 #include "MainWindow.h"
 #include "Menu.h"
 
@@ -35,7 +37,9 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 }
 
 int main(int argc, char* argv[]) {
+
 	QApplication app(argc, argv);
+	initialiserBibliothequeCours(argc, argv);
 	Menu menu;
 	menu.show();
 	return app.exec();
