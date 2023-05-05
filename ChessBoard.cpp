@@ -329,23 +329,42 @@ Position ChessBoard::findKing(Team team) {
 }
 
 
-// Add this method to check if a given position is attacked by the opponent
-bool ChessBoard::isPositionAttacked(Position position, Team attackerTeam) {
+bool ChessBoard::isPositionAttacked(Position position, Team team) {
 	for (int row = 0; row < ROW_NUM; ++row) {
 		for (int col = 0; col < COL_NUM; ++col) {
-			std::shared_ptr<ChessPiece> attacker = at(row, col)->getPiece();
-			if (attacker && attacker->getTeam() == attackerTeam) {
-				Position attackerPosition(row, col);
-				if (attacker->isValidMove(attackerPosition, position)) {
-					if (attacker->getName() == "Knight" || !hasPiecesInWay(attackerPosition, position)) {
+			Position attacker(row, col);
+			std::shared_ptr<ChessPiece> attackerPiece = at(attacker.first, attacker.second)->getPiece();
+
+			if (!attackerPiece || attackerPiece->getTeam() != team) {
+				continue;
+			}
+
+			// Handle the pawn's attack differently
+			if (attackerPiece->getName() == "Pawn") {
+				int rowDifference = position.first - attacker.first;
+				int colDifference = std::abs(position.second - attacker.second);
+
+				if (team == White) {
+					if (colDifference == 1 && rowDifference == 1) {
 						return true;
 					}
+				}
+				else {
+					if (colDifference == 1 && rowDifference == -1) {
+						return true;
+					}
+				}
+			}
+			else if (attackerPiece->isValidMove(attacker, position)) {
+				if (attackerPiece->getName() == "Knight" || !hasPiecesInWay(attacker, position)) {
+					return true;
 				}
 			}
 		}
 	}
 	return false;
 }
+
 
 bool ChessBoard::isValidPosition(const Position& position) {
 	int row = position.first;
@@ -373,6 +392,7 @@ bool ChessBoard::isMoveResultingInCheck(const Position& from, const Position& to
 
 	// Check if the king is in check
 	bool kingInCheck = isPositionAttacked(kingPosition, currentPlayer_ == White ? Black : White);
+
 
 	// Revert the move 
 	destinationCase->setPiece(capturedPiece);
@@ -413,13 +433,20 @@ void ChessBoard::highlightValidMoves(int row, int col) {
 			if (destinationPiece && destinationPiece->getTeam() == currentPlayer_) {
 				continue;
 			}
+
 			if (piece->isValidMove(clickedPosition, destination)) {
 				bool canHighlight = false;
-				if (piece->getName() == "Knight") {
-					canHighlight = !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+				if (piece->getName() == "King") {
+					Team opponentTeam = piece->getTeam() == White ? Black : White;
+					canHighlight = !isPositionAttacked(destination, opponentTeam);
 				}
 				else {
-					canHighlight = !hasPiecesInWay(clickedPosition, destination) && !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+					if (piece->getName() == "Knight") {
+						canHighlight = !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+					}
+					else {
+						canHighlight = !hasPiecesInWay(clickedPosition, destination) && !isMoveResultingInCheck(clickedPosition, destination, findKing(currentPlayer_));
+					}
 				}
 
 				if (canHighlight) {
@@ -429,6 +456,9 @@ void ChessBoard::highlightValidMoves(int row, int col) {
 		}
 	}
 }
+
+
+
 
 
 void ChessBoard::removeHighlightFromAllCases() {

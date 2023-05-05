@@ -1,5 +1,5 @@
 #include "ChessBoard.h"
-#include "Pawn.h"
+#include "ChessPiece.h"
 
 bool Pawn::isValidMove(const Position& from, const Position& to) const {
 	int rowDifference = to.first - from.first;
