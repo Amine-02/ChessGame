@@ -35,7 +35,7 @@ public:
 		: QPushButton(parent), position_(position)
 	{
 		setFixedSize(CASE_SIZE, CASE_SIZE);
-		if (colorStyle == 0) { // Brown/Beige color style
+		if (colorStyle == 0) { // Style ClassicWood
 			if (isWhite) {
 				setStyleSheet("background-color: Peru;");
 			}
@@ -43,7 +43,7 @@ public:
 				setStyleSheet("background-color: Wheat;");
 			}
 		}
-		else if (colorStyle == 1) { // Gray/Blue color style
+		else if (colorStyle == 1) { // Style SilverMoon
 			if (isWhite) {
 				setStyleSheet("background-color: LightGray;");
 			}
@@ -51,7 +51,7 @@ public:
 				setStyleSheet("background-color: SlateGray;");
 			}
 		}
-		else if (colorStyle == 2) { // Green/Cream color style
+		else if (colorStyle == 2) { // Syle EmeraldGarden
 			if (isWhite) {
 				setStyleSheet("background-color: LightGreen;");
 			}
@@ -59,7 +59,7 @@ public:
 				setStyleSheet("background-color: DarkGreen;");
 			}
 		}
-		else if (colorStyle == 3) { // Purple/Pink color style
+		else if (colorStyle == 3) { // Style LavenderDreams
 			if (isWhite) {
 				setStyleSheet("background-color: Thistle;");
 			}
@@ -121,7 +121,7 @@ public:
 		: QWidget(parent), colorStyle_(colorStyle)
 	{
 
-		QGridLayout* gridLayout = new QGridLayout(this);  // Set layout to 'this'
+		QGridLayout* gridLayout = new QGridLayout(this);
 		gridLayout->setSpacing(0);
 
 		setAutoFillBackground(true);
@@ -137,18 +137,18 @@ public:
 				bool isWhite = (total_ % 2 == 0);
 				std::shared_ptr<Case> chessCase = std::make_shared<Case>(Position{ row, col }, isWhite, colorStyle);
 				gridLayout->addWidget(chessCase.get(), row, col);
-				board[row][col] = chessCase;
+				board_[row][col] = chessCase;
 
-				// Add click handling for each case
+				// Implementation de la gestion des clics pour chaque case.
 				connect(chessCase.get(), &Case::caseClicked, this, &ChessBoard::onCaseClicked);
 				connect(chessCase.get(), &Case::caseClicked, this, &ChessBoard::highlightValidMoves);
 
 			}
 		}
 
-		setLayout(gridLayout);  // Set the layout for the ChessBoard widget
+		setLayout(gridLayout);
 
-		// Add pieces to the board
+		// Ajout des pieces par rapport è la configuration choisie.
 		addPieces(index_);
 	}
 
@@ -159,7 +159,7 @@ public:
 	bool movePiece(const Position& from, const Position& to);
 
 	std::array<std::array<std::shared_ptr<Case>, 8>, 8> getBoard() const {
-		return board;
+		return board_;
 	}
 
 	void addPieces(int config);
@@ -185,7 +185,7 @@ protected:
 	void resizeEvent(QResizeEvent* event) override;
 
 private:
-	std::array<std::array<std::shared_ptr<Case>, 8>, 8> board;
+	std::array<std::array<std::shared_ptr<Case>, 8>, 8> board_;
 	int total_ = 0;
 	std::shared_ptr<Case> selectedCase_ = nullptr;
 	Team currentPlayer_;

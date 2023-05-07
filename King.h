@@ -26,7 +26,8 @@ public:
 		int rowDifference = std::abs(from.first - to.first);
 		int colDifference = std::abs(from.second - to.second);
 
-		// A king can move one square in any direction (horizontally, vertically, or diagonally)
+		// La piece King peut se deplacer d'une case dans toutes les directions.
+
 		return (rowDifference <= 1) && (colDifference <= 1);
 	}
 

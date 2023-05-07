@@ -10,10 +10,10 @@ public:
 	MainWindow(int colorStyle, QWidget* parent = nullptr);
 
 	ChessBoard* getBoard() {
-		return chessBoard;
+		return chessBoard_;
 	}
 
 private:
-	ChessBoard* chessBoard;
+	ChessBoard* chessBoard_;
 	int color_;
 };

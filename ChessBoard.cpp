@@ -3,108 +3,106 @@
 
 #include "ChessBoard.h"
 
-
 void ChessBoard::generateOriginalBoard() {
 
-	// Add white pieces
+
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(White, *this);
-		board[1][i]->updateLayout(pawn);
-		board[1][i]->setPiece(pawn);
+		board_[1][i]->updateLayout(pawn);
+		board_[1][i]->setPiece(pawn);
 	}
 
 	auto rook1 = std::make_shared<Rook>(White);
-	board[0][0]->updateLayout(rook1);
-	board[0][0]->setPiece(rook1);
+	board_[0][0]->updateLayout(rook1);
+	board_[0][0]->setPiece(rook1);
 
 	auto rook2 = std::make_shared<Rook>(White);
-	board[0][7]->updateLayout(rook2);
-	board[0][7]->setPiece(rook2);
+	board_[0][7]->updateLayout(rook2);
+	board_[0][7]->setPiece(rook2);
 
 	auto knight1 = std::make_shared<Knight>(White);
-	board[0][1]->updateLayout(knight1);
-	board[0][1]->setPiece(knight1);
+	board_[0][1]->updateLayout(knight1);
+	board_[0][1]->setPiece(knight1);
 
 	auto knight2 = std::make_shared<Knight>(White);
-	board[0][6]->updateLayout(knight2);
-	board[0][6]->setPiece(knight2);
+	board_[0][6]->updateLayout(knight2);
+	board_[0][6]->setPiece(knight2);
 
 	auto bishop1 = std::make_shared<Bishop>(White);
-	board[0][2]->updateLayout(bishop1);
-	board[0][2]->setPiece(bishop1);
+	board_[0][2]->updateLayout(bishop1);
+	board_[0][2]->setPiece(bishop1);
 
 	auto bishop2 = std::make_shared<Bishop>(White);
-	board[0][5]->updateLayout(bishop2);
-	board[0][5]->setPiece(bishop2);
+	board_[0][5]->updateLayout(bishop2);
+	board_[0][5]->setPiece(bishop2);
 
 	auto queen = std::make_shared<Queen>(White);
-	board[0][3]->updateLayout(queen);
-	board[0][3]->setPiece(queen);
+	board_[0][3]->updateLayout(queen);
+	board_[0][3]->setPiece(queen);
 
 	auto king1 = std::make_shared<King>(White);
-	board[0][4]->updateLayout(king1);
-	board[0][4]->setPiece(king1);
+	board_[0][4]->updateLayout(king1);
+	board_[0][4]->setPiece(king1);
 
-	// Add black pieces
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(Black, *this);
-		board[6][i]->updateLayout(pawn);
-		board[6][i]->setPiece(pawn);
+		board_[6][i]->updateLayout(pawn);
+		board_[6][i]->setPiece(pawn);
 	}
 
 	auto rook3 = std::make_shared<Rook>(Black);
-	board[7][0]->updateLayout(rook3);
-	board[7][0]->setPiece(rook3);
+	board_[7][0]->updateLayout(rook3);
+	board_[7][0]->setPiece(rook3);
 
 	auto rook4 = std::make_shared<Rook>(Black);
-	board[7][7]->updateLayout(rook4);
-	board[7][7]->setPiece(rook4);
+	board_[7][7]->updateLayout(rook4);
+	board_[7][7]->setPiece(rook4);
 
 	auto knight3 = std::make_shared<Knight>(Black);
-	board[7][1]->updateLayout(knight3);
-	board[7][1]->setPiece(knight3);
+	board_[7][1]->updateLayout(knight3);
+	board_[7][1]->setPiece(knight3);
 
 	auto knight4 = std::make_shared<Knight>(Black);
-	board[7][6]->updateLayout(knight4);
-	board[7][6]->setPiece(knight4);
+	board_[7][6]->updateLayout(knight4);
+	board_[7][6]->setPiece(knight4);
 
 	auto bishop3 = std::make_shared<Bishop>(Black);
-	board[7][2]->updateLayout(bishop3);
-	board[7][2]->setPiece(bishop3);
+	board_[7][2]->updateLayout(bishop3);
+	board_[7][2]->setPiece(bishop3);
 
 	auto bishop4 = std::make_shared<Bishop>(Black);
-	board[7][5]->updateLayout(bishop4);
-	board[7][5]->setPiece(bishop4);
+	board_[7][5]->updateLayout(bishop4);
+	board_[7][5]->setPiece(bishop4);
 
 	auto queen2 = std::make_shared<Queen>(Black);
-	board[7][3]->updateLayout(queen2);
-	board[7][3]->setPiece(queen2);
+	board_[7][3]->updateLayout(queen2);
+	board_[7][3]->setPiece(queen2);
 
 	auto king2 = std::make_shared<King>(Black);
-	board[7][4]->updateLayout(king2);
-	board[7][4]->setPiece(king2);
+	board_[7][4]->updateLayout(king2);
+	board_[7][4]->setPiece(king2);
 }
 
 void ChessBoard::rookConfiguration() {
 
 	auto king1 = std::make_shared<King>(White);
-	board[0][4]->updateLayout(king1);
-	board[0][4]->setPiece(king1);
+	board_[0][4]->updateLayout(king1);
+	board_[0][4]->setPiece(king1);
 
 	auto king2 = std::make_shared<King>(Black);
-	board[7][4]->updateLayout(king2);
-	board[7][4]->setPiece(king2);
+	board_[7][4]->updateLayout(king2);
+	board_[7][4]->setPiece(king2);
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(White, *this);
-		board[1][i]->updateLayout(pawn);
-		board[1][i]->setPiece(pawn);
+		board_[1][i]->updateLayout(pawn);
+		board_[1][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(Black, *this);
-		board[6][i]->updateLayout(pawn);
-		board[6][i]->setPiece(pawn);
+		board_[6][i]->updateLayout(pawn);
+		board_[6][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -112,8 +110,8 @@ void ChessBoard::rookConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Rook>(White);
-		board[0][i]->updateLayout(rook);
-		board[0][i]->setPiece(rook);
+		board_[0][i]->updateLayout(rook);
+		board_[0][i]->setPiece(rook);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -121,31 +119,31 @@ void ChessBoard::rookConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Rook>(Black);
-		board[7][i]->updateLayout(rook);
-		board[7][i]->setPiece(rook);
+		board_[7][i]->updateLayout(rook);
+		board_[7][i]->setPiece(rook);
 	}
 }
 
 void ChessBoard::bishopConfiguration() {
 
 	auto king1 = std::make_shared<King>(White);
-	board[0][4]->updateLayout(king1);
-	board[0][4]->setPiece(king1);
+	board_[0][4]->updateLayout(king1);
+	board_[0][4]->setPiece(king1);
 
 	auto king2 = std::make_shared<King>(Black);
-	board[7][4]->updateLayout(king2);
-	board[7][4]->setPiece(king2);
+	board_[7][4]->updateLayout(king2);
+	board_[7][4]->setPiece(king2);
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(White, *this);
-		board[1][i]->updateLayout(pawn);
-		board[1][i]->setPiece(pawn);
+		board_[1][i]->updateLayout(pawn);
+		board_[1][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(Black, *this);
-		board[6][i]->updateLayout(pawn);
-		board[6][i]->setPiece(pawn);
+		board_[6][i]->updateLayout(pawn);
+		board_[6][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -153,8 +151,8 @@ void ChessBoard::bishopConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Bishop>(White);
-		board[0][i]->updateLayout(rook);
-		board[0][i]->setPiece(rook);
+		board_[0][i]->updateLayout(rook);
+		board_[0][i]->setPiece(rook);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -162,31 +160,31 @@ void ChessBoard::bishopConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Bishop>(Black);
-		board[7][i]->updateLayout(rook);
-		board[7][i]->setPiece(rook);
+		board_[7][i]->updateLayout(rook);
+		board_[7][i]->setPiece(rook);
 	}
 }
 
 void ChessBoard::queenConfiguration() {
 
 	auto king1 = std::make_shared<King>(White);
-	board[0][4]->updateLayout(king1);
-	board[0][4]->setPiece(king1);
+	board_[0][4]->updateLayout(king1);
+	board_[0][4]->setPiece(king1);
 
 	auto king2 = std::make_shared<King>(Black);
-	board[7][4]->updateLayout(king2);
-	board[7][4]->setPiece(king2);
+	board_[7][4]->updateLayout(king2);
+	board_[7][4]->setPiece(king2);
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(White, *this);
-		board[1][i]->updateLayout(pawn);
-		board[1][i]->setPiece(pawn);
+		board_[1][i]->updateLayout(pawn);
+		board_[1][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
 		auto pawn = std::make_shared<Pawn>(Black, *this);
-		board[6][i]->updateLayout(pawn);
-		board[6][i]->setPiece(pawn);
+		board_[6][i]->updateLayout(pawn);
+		board_[6][i]->setPiece(pawn);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -194,8 +192,8 @@ void ChessBoard::queenConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Queen>(White);
-		board[0][i]->updateLayout(rook);
-		board[0][i]->setPiece(rook);
+		board_[0][i]->updateLayout(rook);
+		board_[0][i]->setPiece(rook);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -203,19 +201,21 @@ void ChessBoard::queenConfiguration() {
 			continue;
 		}
 		auto rook = std::make_shared<Queen>(Black);
-		board[7][i]->updateLayout(rook);
-		board[7][i]->setPiece(rook);
+		board_[7][i]->updateLayout(rook);
+		board_[7][i]->setPiece(rook);
 	}
 }
 
 void ChessBoard::addPieces(int config) {
-	// Clear the board
-	for (auto& row : board) {
+
+	// Efface l'echiquier (mesure de securite)
+	for (auto& row : board_) {
 		for (auto& square : row) {
 			square->removePiece();
 		}
 	}
 
+	// Genere les piece de l'echiquier par rapport a la configuration choisie.
 	switch (config) {
 	case 0: // Classic
 		generateOriginalBoard();
@@ -229,8 +229,6 @@ void ChessBoard::addPieces(int config) {
 	case 3: // The Queens Game
 		queenConfiguration();
 		break;
-	default:
-		throw std::runtime_error("Invalid configuration");
 	}
 }
 
@@ -243,10 +241,9 @@ void ChessBoard::resizeEvent(QResizeEvent* event) {
 	int minDimension = std::min(width(), height());
 	int newCaseSize = minDimension;
 
-	// Iterate through the board and set the new size for each case
 	for (int row = 0; row < ROW_NUM; ++row) {
 		for (int col = 0; col < COL_NUM; ++col) {
-			board[row][col]->setFixedSize(newCaseSize, newCaseSize);
+			board_[row][col]->setFixedSize(newCaseSize, newCaseSize);
 		}
 	}
 
@@ -276,15 +273,15 @@ void Case::updateLayout(std::shared_ptr<ChessPiece> piece) {
 }
 
 std::shared_ptr<Case>& ChessBoard::at(int row, int col) {
-	return board[row][col];
+	return board_[row][col];
 }
 
 const std::shared_ptr<Case>& ChessBoard::at(int row, int col) const {
-	return board[row][col];
+	return board_[row][col];
 }
 
 bool ChessBoard::isOpponentPiece(Position to, Team team) {
-	std::shared_ptr<ChessPiece> piece = board[to.first][to.second].get()->getPiece();
+	std::shared_ptr<ChessPiece> piece = board_[to.first][to.second].get()->getPiece();
 	if (piece == nullptr) {
 		return false;
 	}
@@ -339,7 +336,6 @@ bool ChessBoard::isPositionAttacked(Position position, Team team) {
 				continue;
 			}
 
-			// Handle the pawn's attack differently
 			if (attackerPiece->getName() == "Pawn") {
 				int rowDifference = position.first - attacker.first;
 				int colDifference = std::abs(position.second - attacker.second);
@@ -370,7 +366,7 @@ bool ChessBoard::isValidPosition(const Position& position) {
 	int row = position.first;
 	int col = position.second;
 
-	// Check if the row and column are within the bounds of the chessboard
+	// Verifie si les rangees et les colonnes sont a l'interieur de l'echiquier.
 	if (row >= 0 && row < ROW_NUM && col >= 0 && col < COL_NUM) {
 		return true;
 	}
@@ -384,17 +380,17 @@ bool ChessBoard::isMoveResultingInCheck(const Position& from, const Position& to
 	std::shared_ptr<Case>& originCase = this->getBoard()[from.first][from.second];
 	std::shared_ptr<Case>& destinationCase = this->getBoard()[to.first][to.second];
 
-	// Simulate the move
+	// Simule le deplacement.
 	auto attacker = originCase->getPiece();
 	auto capturedPiece = destinationCase->getPiece();
 	destinationCase->setPiece(originCase->getPiece());
 	originCase->setPiece(nullptr);
 
-	// Check if the king is in check
+	// Verifie si le roi est en echec.
 	bool kingInCheck = isPositionAttacked(kingPosition, currentPlayer_ == White ? Black : White);
 
 
-	// Revert the move 
+	// Retourne a la position initiale.
 	destinationCase->setPiece(capturedPiece);
 	originCase->setPiece(attacker);
 
@@ -403,8 +399,7 @@ bool ChessBoard::isMoveResultingInCheck(const Position& from, const Position& to
 
 void generateWarning(QString message) {
 
-	QMessageBox warning = QMessageBox();
-
+	QMessageBox warning = QMessageBox(); // Generation d'une fenetre d'erreur typique.
 	warning.setIcon(QMessageBox::Warning);
 	warning.setWindowTitle("Warning");
 	warning.setText(message);
@@ -429,7 +424,7 @@ void ChessBoard::highlightValidMoves(int row, int col) {
 			Position destination(i, j);
 			std::shared_ptr<ChessPiece> destinationPiece = at(destination.first, destination.second)->getPiece();
 
-			// Skip if the destination has a piece from the same team
+			// Ne considere pas les positions avec des pieces de la meme equipe.
 			if (destinationPiece && destinationPiece->getTeam() == currentPlayer_) {
 				continue;
 			}
@@ -450,7 +445,7 @@ void ChessBoard::highlightValidMoves(int row, int col) {
 				}
 
 				if (canHighlight) {
-					board[i][j]->setStyleSheet("background-color: rgba(255, 255, 0, 0.5);");
+					board_[i][j]->setStyleSheet("background-color: rgba(255, 255, 0, 0.5);"); // Illustre les positions possibles d'une piece.
 				}
 			}
 		}
@@ -524,15 +519,15 @@ bool ChessBoard::movePiece(const Position& from, const Position& to) {
 		return false;
 	}
 
-	// Move the piece
+	// Deplace la piece.
 	destinationCase->setPiece(originCase->getPiece());
 	originCase->setPiece(nullptr);
 
-	// Update the layouts
+	// Met a jour l'interface.
 	originCase->updateLayout(destinationCase->getPiece());
 	destinationCase->updateLayout(destinationCase->getPiece());
 
-	// Turn Pawn into Queen
+	// Transforme un pion en une reine Queen.
 	if (destinationCase->getPiece()->getName() == "Pawn" && (to.first == 0 || to.first == 7)) {
 		auto queen = std::make_shared<Queen>(currentPlayer_);
 		destinationCase->updateLayout(queen);
@@ -550,13 +545,13 @@ void ChessBoard::onCaseClicked(int row, int col) {
 		if (clickedCase->getPiece() && clickedCase->getPiece()->getTeam() == currentPlayer_) {
 			removeHighlightFromAllCases();
 			selectedCase_ = clickedCase;
-			clickedCase->setStyleSheet("background-color: lightsalmon;");
+			clickedCase->setStyleSheet("background-color: lightsalmon;"); // Illustre en rose la case selectionnee.
 		}
 	}
 	else {
 		if (clickedCase->getPiece() && clickedCase->getPiece()->getTeam() == currentPlayer_) {
 			removeHighlightFromAllCases();
-			// Select the new piece
+
 			selectedCase_ = clickedCase;
 			clickedCase->setStyleSheet("background-color: lightsalmon;");
 		}
@@ -564,20 +559,19 @@ void ChessBoard::onCaseClicked(int row, int col) {
 			Position from = selectedCase_->getPosition();
 			Position to = clickedCase->getPosition();
 
-			// Check if it's the current player's turn
+			// Verifie le tour du joueur.
 			if (selectedCase_->getPiece()->getTeam() == currentPlayer_) {
-				if (movePiece(from, to)) { // Check if the move was successful
-					// Switch the current player
+				if (movePiece(from, to)) { // Verifie la validite du deplacement
+					// Change de joueur.
 					removeHighlightFromAllCases();
 					currentPlayer_ = (currentPlayer_ == White) ? Black : White;
 				}
 			}
 
 
-			// Reset the selected case's style
+			// Reinitialise la couleur de la case selectionnee.
 			bool isWhite = (selectedCase_->getPosition().first + selectedCase_->getPosition().second) % 2 == 0;
-			//selectedCase_->setStyleSheet(isWhite ? "background-color: Peru;" : "background-color: Wheat;");
-			if (colorStyle_ == 0) { // Brown/Beige color style
+			if (colorStyle_ == 0) {
 				if (isWhite) {
 					selectedCase_->setStyleSheet("background-color: Peru;");
 				}
@@ -585,7 +579,7 @@ void ChessBoard::onCaseClicked(int row, int col) {
 					selectedCase_->setStyleSheet("background-color: Wheat;");
 				}
 			}
-			else if (colorStyle_ == 1) { // Gray/Blue color style
+			else if (colorStyle_ == 1) {
 				if (isWhite) {
 					selectedCase_->setStyleSheet("background-color: LightGray;");
 				}
@@ -593,7 +587,7 @@ void ChessBoard::onCaseClicked(int row, int col) {
 					selectedCase_->setStyleSheet("background-color: SlateGray;");
 				}
 			}
-			else if (colorStyle_ == 2) { // Green/Cream color style
+			else if (colorStyle_ == 2) {
 				if (isWhite) {
 					selectedCase_->setStyleSheet("background-color: LightGreen;");
 				}
@@ -601,7 +595,7 @@ void ChessBoard::onCaseClicked(int row, int col) {
 					selectedCase_->setStyleSheet("background-color: DarkGreen;");
 				}
 			}
-			else if (colorStyle_ == 3) { // Purple/Pink color style
+			else if (colorStyle_ == 3) {
 				if (isWhite) {
 					selectedCase_->setStyleSheet("background-color: Thistle;");
 				}

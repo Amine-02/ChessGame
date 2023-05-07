@@ -8,20 +8,20 @@ Menu::Menu(QMainWindow* parent)
 	setFixedSize(1000, 1000);
 	widget = new QWidget(this);
 
-	QPixmap backgroundImage(":/image/board.png");
+	QPixmap backgroundImage(":/image/board.png"); // Image d'arrière plan de notre fenêtre Menu.
 	QPalette palette;
 	palette.setBrush(QPalette::Window, backgroundImage);
 	widget->setPalette(palette);
 	widget->setAutoFillBackground(true);
 	widget->setFixedSize(1000, 1000);
 
-	title = new QLabel(widget);
+	title = new QLabel(widget); // Titre en japonais de notre Menu signifiant "échecs".
 	title->setGeometry(300, 100, 400, 100);
 	title->setText("チェス");
 	title->setFont(QFont("TA Fuga-Fude", 30));
 	title->setAlignment(Qt::AlignCenter);
 
-	start = new QPushButton(widget);
+	start = new QPushButton(widget); // Implementation de notre boutton START.
 	start->setGeometry(300, 550, 400, 50);
 	start->setText("START");
 	start->setFont(QFont("Arial", 16, QFont::Bold));
@@ -41,7 +41,7 @@ Menu::Menu(QMainWindow* parent)
 		"}"
 	);
 
-	quit = new QPushButton(widget);
+	quit = new QPushButton(widget); // Implémentation de notre boutton QUIT.
 	quit->setGeometry(300, 650, 400, 50);
 	quit->setText("QUIT");
 	quit->setFont(QFont("Arial", 16, QFont::Bold));
@@ -61,12 +61,12 @@ Menu::Menu(QMainWindow* parent)
 		"}"
 	);
 
-	QLabel* configLabel = new QLabel("CONFIGURATIONS", widget);
+	QLabel* configLabel = new QLabel("CONFIGURATIONS", widget); // Implémentation de notre label CONFIGURATIONS.
 	configLabel->setFont(QFont("Arial", 12, QFont::Bold));
-	configLabel->setGeometry(300, 250, 400, 50); // Adjust position and size as needed
+	configLabel->setGeometry(300, 250, 400, 50);
 	configLabel->setAlignment(Qt::AlignCenter);
 
-	game = new QComboBox(widget);
+	game = new QComboBox(widget); // Implémentation de notre ComboBox game qui présente les différentes configurations.
 	game->setGeometry(300, 300, 400, 50);
 	game->setFont(QFont("Arial", 12, QFont::Bold));
 	game->addItems(QStringList{ "CLASSIC", "THE CRAZY BISHOPS", "ROOK TAKEOVER", "THE QUEENS GAME" });
@@ -107,15 +107,15 @@ Menu::Menu(QMainWindow* parent)
 		"}"
 	);
 
-	QLabel* colorLabel = new QLabel("STYLES", widget);
+	QLabel* colorLabel = new QLabel("STYLES", widget); // Implémentation de notre label STYLES.
 	colorLabel->setFont(QFont("Arial", 12, QFont::Bold));
-	colorLabel->setGeometry(300, 350, 400, 50); // Adjust position and size as needed
+	colorLabel->setGeometry(300, 350, 400, 50);
 	colorLabel->setAlignment(Qt::AlignCenter);
 
-	color = new QComboBox(widget);
+	color = new QComboBox(widget); // Implémentation de notre ComboBox color qui présente les différents styles de couleur de l'échiquier.
 	color->setGeometry(300, 400, 400, 50);
 	color->setFont(QFont("Arial", 12, QFont::Bold));
-	color->addItems(QStringList{ "ClassicWood", "SilverMoon", "EmeraldGarden", "LavenderDreams" });
+	color->addItems(QStringList{ "ClassicWood", "ClassicWood", "EmeraldGarden", "LavenderDreams" });
 	color->setStyleSheet(
 		"QComboBox {"
 		"   background-color: white;"
@@ -148,7 +148,7 @@ Menu::Menu(QMainWindow* parent)
 		"}"
 	);
 
-	connect(start, &QPushButton::clicked, [this]() {
+	connect(start, &QPushButton::clicked, [this]() { // Implémentation de la connexion entre le boutton START et la génération de l'échiquier spécifique. 
 		int configIndex = game->currentIndex();
 	int colorStyleIndex = color->currentIndex();
 	windowPtr = std::make_unique<MainWindow>(colorStyleIndex);
@@ -156,7 +156,7 @@ Menu::Menu(QMainWindow* parent)
 	windowPtr->show();
 		});
 
-	connect(quit, &QPushButton::clicked, [this]() {
+	connect(quit, &QPushButton::clicked, [this]() { // Implémentation de la connexion entre le boutton QUIT et la fermeture du jeu.
 		if (windowPtr) {
 			windowPtr->close();
 		}

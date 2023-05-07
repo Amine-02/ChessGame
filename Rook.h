@@ -22,7 +22,9 @@ public:
 	}
 
 	bool isValidMove(const Position& from, const Position& to) const override {
-		// A rook can move any number of squares along a rank or file
+
+		// Une piece Rook peut se deplacer d'un nombre quelconque de cases le long d'une rangee ou d'une colonne.
+
 		return (from.first == to.first) || (from.second == to.second);
 	}
 private:

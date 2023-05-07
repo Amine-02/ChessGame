@@ -25,7 +25,8 @@ public:
 		int rowDifference = std::abs(from.first - to.first);
 		int colDifference = std::abs(from.second - to.second);
 
-		// A bishop can move any number of squares diagonally
+		// La piece Bishop peut se deplacer seulement en diagonale.
+
 		return rowDifference == colDifference;
 	}
 private:

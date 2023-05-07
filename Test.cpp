@@ -7,6 +7,13 @@
 #include "King.h"
 #include "ChessBoard.h"
 
+/*
+Ces tests verifient si les mouvements de chaque piece (pion, tour, cavalier, fou, reine et roi) sont valides ou non
+en fonction de leurs regles de deplacement specifiques. Les tests comparent les resultats renvoyes par les fonctions
+isValidMove pour chaque type de piece avec les resultats attendus (valides ou invalides) pour s'assurer que les
+implementations respectent les regles du jeu d'echecs.
+*/
+
 TEST(PawnTest, PawnMovement) {
 	int colorStyle = 0;
 	ChessBoard chessBoard(colorStyle);

@@ -25,7 +25,9 @@ public:
 		int rowDifference = std::abs(from.first - to.first);
 		int colDifference = std::abs(from.second - to.second);
 
-		// A queen can move any number of squares along a rank, file, or diagonal
+		/* La piece Queen peut se deplacer d'un nombre quelconque de cases le long d'une rangee,
+		d'une colonne ou d'une diagonale. */
+
 		return (from.first == to.first) || (from.second == to.second) || (rowDifference == colDifference);
 	}
 private:

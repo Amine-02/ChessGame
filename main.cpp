@@ -1,11 +1,19 @@
-﻿#pragma warning(disable : 5054)
+﻿////////////////////////////////////////////////////////////////////////////////
+/// \file   main.cpp
+/// \author Amine Mehmel 2181148
+/// Ce code comprend les fonctions de bases pouvant générer un jeu d'échec
+/// intéractif via la bibliothèque Qt repectant les règles de base.
+////////////////////////////////////////////////////////////////////////////////
+
 /*
-The warning C5054 is related to the use of the '&' operator between enumerations of different types in the Qt library
-header file 'qsizepolicy.h'.
-In our code, we are not directly causing this warning, but it is triggered when we include some Qt components. Since the
-warning originates from a library and not our own code, we can suppress the warning in this specific files using
-"#pragma warning(disable : 5054)".
+L'avertissement C5054 est lié à l'utilisation de l'opérateur "&" entre des énumérations de
+types différents dans le fichier d'en-tête de la bibliothèque Qt "qsizepolicy.h". Dans notre
+code, nous ne causons pas directement cet avertissement, mais il est déclenché lorsque nous
+incluons certains composants Qt. Étant donné que l'avertissement provient d'une bibliothèque
+et non de notre propre code, nous pouvons supprimer l'avertissement dans ces fichiers spécifiques
+en utilisant "#pragma warning(disable : 5054)".
 */
+#pragma warning(disable : 5054)
 #include <QApplication>
 #include "gtest/gtest.h"
 #include "MainWindow.h"
@@ -39,7 +47,7 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 int main(int argc, char* argv[]) {
 
 	QApplication app(argc, argv);
-	initialiserBibliothequeCours(argc, argv);
+	bibliotheque_cours::executerGoogleTest(argc, argv);
 	Menu menu;
 	menu.show();
 	return app.exec();
