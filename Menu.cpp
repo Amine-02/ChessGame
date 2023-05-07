@@ -115,7 +115,7 @@ Menu::Menu(QMainWindow* parent)
 	color = new QComboBox(widget); // Implémentation de notre ComboBox color qui présente les différents styles de couleur de l'échiquier.
 	color->setGeometry(300, 400, 400, 50);
 	color->setFont(QFont("Arial", 12, QFont::Bold));
-	color->addItems(QStringList{ "ClassicWood", "ClassicWood", "EmeraldGarden", "LavenderDreams" });
+	color->addItems(QStringList{ "ClassicWood", "SilverMoon", "EmeraldGarden", "LavenderDreams" });
 	color->setStyleSheet(
 		"QComboBox {"
 		"   background-color: white;"
